@@ -1,17 +1,22 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+import { RectButton } from 'react-native-gesture-handler'
 
+export const Container = styled.View`
+    
 `
 
 export const Content = styled.View`
+
     height: 100%;
     width: 100%;
     
     border-radius: 32px;
-    margin-top: -20px;
+    
     padding: 24px;
     background: #F0EDF5;
+
+    z-index: 30;
 `
 
 export const ContentTopContainer = styled.View`
@@ -36,7 +41,7 @@ export const CardsContainer = styled.View`
     justify-content: space-between;
 `
 
-export const CourseCard = styled.View`
+export const CourseCard = styled(RectButton)`
     width: 48%;
     padding: 32px;
     border-radius: 16px;

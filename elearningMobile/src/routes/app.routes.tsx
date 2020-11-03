@@ -3,9 +3,10 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import Landing from '../pages/Landing'
-import Dashboard from '../pages/Dashboard'
+import Details from '../pages/Details'
+import Lesson from '../pages/Lesson'
 
-import Tabs from './appTabs.routes'
+import Tabs from '../pages/Tabs'
 
 const App = createStackNavigator()
 
@@ -17,6 +18,8 @@ const AppRoutes: React.FC = ()=>{
             
             <App.Screen name="Landing" component={Landing} />
             <App.Screen name="Tabs" component={Tabs} />
+            <App.Screen name="Details" component={Details} />
+            <App.Screen name="Lesson" component={Lesson} />
 
         </App.Navigator>
     )
