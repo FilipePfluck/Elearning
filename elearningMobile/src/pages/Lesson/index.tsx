@@ -1,23 +1,54 @@
 import React from 'react'
+import { useRoute } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
+import Video from 'react-native-video'
 
 import LessonHeader from '../../components/LessonHeader'
 
 import * as S from './styles'
+import { View } from 'react-native'
+
+interface Lesson {
+    id: string,
+    name: string,
+    description: string,
+    duration: number,
+    video_id: string
+}
+
+interface Params {
+    lesson: Lesson,
+    index: number
+}
 
 const Lesson: React.FC = ()=>{
+    const route = useRoute()
+
+    const RouteParams = route.params as Params
+
+    const {lesson, index} = RouteParams
+
     return(
         <S.Container>
             <LessonHeader/>
             <S.Content>
-                <S.Video/>
-                <S.Title>Introdução à teoria matemática</S.Title>
+                
+                <Video
+                    source={{uri: `https://youtu.be/O433Arp-l0E`}}
+                    controls
+                    style={{
+                        height: 200,
+                        width: '100%'
+                    }}
+                />
+                
+                <S.Title>{lesson.name}</S.Title>
                 <S.InfoContainer>
-                    <S.Info>Aula 01</S.Info>
-                    <S.Info>5min</S.Info>
+                    <S.Info>Aula {index+1}</S.Info>
+                    <S.Info>{lesson.duration/60} min</S.Info>
                 </S.InfoContainer>
                 <S.Description>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus condimentum gravida. Aenean condimentum vehicula sapien, eleifend metus congue vel. Suspendisse vitae tellus eu lacus facilisis auctor nec tristique eros.
+                    {lesson.description}
                 </S.Description>
                 <S.ButtonsContainer>
                     <S.PreviousButton>

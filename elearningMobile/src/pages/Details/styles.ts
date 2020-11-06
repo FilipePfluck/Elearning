@@ -1,6 +1,15 @@
+import { FlatList } from 'react-native'
 import styled from 'styled-components/native'
 
 import { RectButton } from 'react-native-gesture-handler'
+
+interface Lesson {
+    id: string,
+    name: string,
+    description: string,
+    duration: number,
+    video_id: string
+}
 
 export const Container = styled.View`
 
@@ -31,8 +40,8 @@ export const LessonsNumber = styled.Text`
     color: #A0A0B2;
 ` 
 
-export const LessonsCardContainer = styled.ScrollView`
-
+export const LessonsList = styled(FlatList as new () => FlatList<Lesson>)`
+    margin-bottom: 16px;
 `
 
 export const LessonCard = styled(RectButton)`
