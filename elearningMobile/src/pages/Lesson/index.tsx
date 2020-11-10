@@ -34,11 +34,11 @@ const Lesson: React.FC = ()=>{
             <S.Content>
                 
                 <Video
-                    source={{uri: `https://youtu.be/O433Arp-l0E`}}
+                    source={{uri: `https://youtu.be/${lesson.video_id}`}}
                     controls
                     style={{
                         height: 200,
-                        width: '100%'
+                        width: 700
                     }}
                 />
                 

@@ -5,14 +5,18 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native'
 
+import AppProvider from './context'
+
 import Routes from './routes/app.routes'
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="light-content" backgroundColor="#6548A3" />
-      <Routes/>
-    </NavigationContainer>
+    <AppProvider>
+      <NavigationContainer>
+        <StatusBar barStyle="light-content" backgroundColor="#6548A3" />
+        <Routes/>
+      </NavigationContainer>
+    </AppProvider>
   );
 };
 
