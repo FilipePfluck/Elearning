@@ -18,7 +18,8 @@ interface Lesson {
 
 interface Params {
     lesson: Lesson,
-    index: number
+    index: number,
+    id: string
 }
 
 const Lesson: React.FC = ()=>{
@@ -26,11 +27,11 @@ const Lesson: React.FC = ()=>{
 
     const RouteParams = route.params as Params
 
-    const {lesson, index} = RouteParams
+    const {lesson, index, id} = RouteParams
 
     return(
         <S.Container>
-            <LessonHeader/>
+            <LessonHeader CourseId={id}/>
             <S.Content>
                 
                 <Video

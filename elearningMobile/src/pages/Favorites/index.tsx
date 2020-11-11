@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
+
+import { useFavorite } from '../../context/FavoritesContext'
 
 import Math from '../../assets/Math.png'
 
@@ -7,6 +9,11 @@ import * as S from './styles'
 
 const Favorites: React.FC = () => {
     const { navigate } = useNavigation()
+    const { favorites } = useFavorite()
+
+    useEffect(()=>{
+        console.log(favorites)
+    },[favorites])
 
     return(
         <S.Container>

@@ -6,7 +6,8 @@ import api from '../services/api'
 
 interface FavoritesContextData {
     favorites: any[]
-    toggleFavorite: (id: string)=>void
+    toggleFavorite: (id: string)=>Promise<boolean>
+    verifyIfIsFavorite: (id: string)=>boolean
 }
 
 export const FavoritesContext = createContext({} as FavoritesContextData)
@@ -27,14 +28,14 @@ export const FavoritesProvider:React.FC = ({children}) => {
     },[])
 
     const toggleFavorite = useCallback(async(id: string)=>{
-        const isFavorite = favorites.some(fav => {
-            return fav === id
-        })
-
+        var isFavorite = false
         var newState
 
         setFavorites(state => {
-            
+            isFavorite = state.some(fav => {
+                return fav === id
+            })
+
             if(isFavorite){
                 newState = state.filter(fav => {
                     return fav !== id
@@ -47,10 +48,20 @@ export const FavoritesProvider:React.FC = ({children}) => {
         })
 
         await AsyncStorage.setItem('@elearning:favorites', JSON.stringify(newState))
+
+        return !isFavorite
+    },[])
+
+    const verifyIfIsFavorite = useCallback((id: string)=>{
+        const isFavorite = favorites.some(fav => {
+            return fav === id
+        })
+
+        return isFavorite
     },[])
 
     return(
-        <FavoritesContext.Provider value={{favorites, toggleFavorite}}>
+        <FavoritesContext.Provider value={{favorites, toggleFavorite, verifyIfIsFavorite}}>
             {children}
         </FavoritesContext.Provider>
     )

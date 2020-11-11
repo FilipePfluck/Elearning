@@ -17,23 +17,22 @@ const Details: React.FC = ()=>{
     const { navigate } = useNavigation()
     const route = useRoute()
 
-    const routeParams = route.params as Params
+    const {id, name} = route.params as Params
 
     const [lessons, setLessons] = useState([])
 
     useEffect(()=>{
-        api.get(`/lessons/${routeParams.id}`).then(response => {
+        api.get(`/lessons/${id}`).then(response => {
             setLessons(response.data)
-            console.log(response.data)
         })
-    },[routeParams])
+    },[id])
 
     return(
         <S.Container>
-            <LessonHeader/>
+            <LessonHeader CourseId={id}/>
             <S.Content>
                 <S.ContentTop>
-                    <S.Title>{routeParams.name}</S.Title>
+                    <S.Title>{name}</S.Title>
                     <S.LessonsNumber>{lessons.length} aulas</S.LessonsNumber>
                 </S.ContentTop>
 
@@ -42,7 +41,7 @@ const Details: React.FC = ()=>{
                     keyExtractor={lesson => lesson.id}
                     renderItem={({item: lesson, index})=>(
                         <S.LessonCard
-                            onPress={()=>navigate('Lesson', {lesson, index})}
+                            onPress={()=>navigate('Lesson', {lesson, index, id})}
                         >
                             <S.PlayContainer>
                                 <Icon name="play-circle" color="#FFF" size={48}/>

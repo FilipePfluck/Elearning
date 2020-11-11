@@ -17,7 +17,6 @@ const Dashboard: React.FC = () => {
     useEffect(()=>{
         api.get('/courses').then(response => {
             setCourses(response.data)
-            console.log(response.data)
         })
     },[])
 
