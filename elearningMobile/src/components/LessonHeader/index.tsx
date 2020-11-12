@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useFavorite } from '../../context/FavoritesContext'
 
 import Logo from '../../assets/logo.png'
+import Favorite from '../../assets/favorite.svg'
 
 import * as S from './styles'
 
@@ -20,14 +21,8 @@ const LessonHeader: React.FC<HeaderParams> = ({ CourseId })=>{
         return verifyIfIsFavorite(CourseId)
     })
 
-    useEffect(()=>{
-        console.log(CourseId)
-    },[])
-
     const toggle = useCallback(async()=>{
         const favorite = await toggleFavorite(CourseId)
-
-        console.log(favorite)
 
         setIsFavorite(favorite)
     },[toggleFavorite])
@@ -35,19 +30,31 @@ const LessonHeader: React.FC<HeaderParams> = ({ CourseId })=>{
     return(
         <S.Container>
             <S.TopContainer>
+                <S.Touchable onPress={()=>goBack()}>
                 <Icon 
                     name="arrow-left" 
-                    color="#FF6680" 
+                    color="#FFF" 
                     size={24}
-                    onPress={()=>goBack()}
                 />
+                </S.Touchable>
                 <S.Image source={Logo}/>
-                <Icon 
-                    name="heart" 
-                    color="#FF6680" 
-                    size={24}
-                    onPress={toggle}
-                />
+                <S.Touchable onPress={toggle}>
+                {isFavorite && (
+                    <Icon 
+                        name="heart" 
+                        color="#FF6680" 
+                        size={24}
+                        
+                    />
+                )}
+                {!isFavorite && (
+                    <Icon 
+                        name="heart" 
+                        color="#FFF" 
+                        size={24}
+                    />
+                )}
+                </S.Touchable>
             </S.TopContainer>
         </S.Container>
     )

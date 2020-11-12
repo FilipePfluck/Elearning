@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
+import { useCourses } from '../../context/CoursesContext'
+
 import api from '../../services/api'
 
 import Header from '../../components/Header'
@@ -12,20 +14,14 @@ import * as S from './styles'
 const Dashboard: React.FC = () => {
     const { navigate } = useNavigation()
 
-    const [courses, setCourses] = useState([])
-
-    useEffect(()=>{
-        api.get('/courses').then(response => {
-            setCourses(response.data)
-        })
-    },[])
+    const { courses, setCourses } = useCourses()
 
     return(
         <S.Container>
             <S.Content>
                 <S.ContentTopContainer>
                     <S.Title>Cursos</S.Title>
-                    <S.CoursesNumber>43 Cursos</S.CoursesNumber>
+                    <S.CoursesNumber>{courses.length} cursos</S.CoursesNumber>
                 </S.ContentTopContainer>
                 
                 <S.CoursesList 
@@ -43,19 +39,6 @@ const Dashboard: React.FC = () => {
                         </S.CourseCard>
                     )}
                 />
-
-                {/* <S.CardsContainer>
-                    <S.CourseCard onPress={()=>navigate('Details')}>
-                        <S.CourseImage source={Math}/>
-                        <S.CourseName>Matemática</S.CourseName>
-                        <S.CourseLessons>16 aulas</S.CourseLessons>
-                    </S.CourseCard>
-                    <S.CourseCard onPress={()=>navigate('Details')}>
-                        <S.CourseImage source={Math}/>
-                        <S.CourseName>Matemática</S.CourseName>
-                        <S.CourseLessons>16 aulas</S.CourseLessons>
-                    </S.CourseCard>
-                </S.CardsContainer> */}
 
             </S.Content>
         </S.Container>

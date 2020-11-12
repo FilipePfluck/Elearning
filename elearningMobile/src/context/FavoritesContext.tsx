@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import api from '../services/api'
 
 interface FavoritesContextData {
-    favorites: any[]
+    favorites: string[]
     toggleFavorite: (id: string)=>Promise<boolean>
     verifyIfIsFavorite: (id: string)=>boolean
 }
@@ -58,7 +58,7 @@ export const FavoritesProvider:React.FC = ({children}) => {
         })
 
         return isFavorite
-    },[])
+    },[favorites])
 
     return(
         <FavoritesContext.Provider value={{favorites, toggleFavorite, verifyIfIsFavorite}}>

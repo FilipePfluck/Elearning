@@ -7,8 +7,6 @@ class CoursesController {
     public async create(request: Request, response: Response): Promise<Response>{
         const { name, avatar, description } = request.body
 
-        console.log('controller')
-
         const createCourse = new CreateCourse()
 
         const course = await createCourse.execute({name, avatar, description})
@@ -17,9 +15,11 @@ class CoursesController {
     }
 
     public async index(request: Request, response: Response): Promise<Response>{
+        const { search } = request.query
+
         const listCourses = new ListCourses()
 
-        const courses = await listCourses.execute()
+        const courses = await listCourses.execute({search} as {search: string})
 
         return response.json(courses)
     }

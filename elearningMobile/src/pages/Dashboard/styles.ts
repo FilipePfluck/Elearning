@@ -7,7 +7,6 @@ interface Course {
     name: string,
     number_of_classes: string,
     avatar: string
-
 }
 
 export const Container = styled.View`

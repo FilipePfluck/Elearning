@@ -1,6 +1,14 @@
+import { FlatList } from 'react-native'
 import styled from 'styled-components/native'
 
-import { RectButton } from 'react-native-gesture-handler'
+import { RectButton, BorderlessButton } from 'react-native-gesture-handler'
+
+interface Course {
+    id: string,
+    name: string,
+    number_of_classes: string,
+    avatar: string
+}
 
 export const Container = styled.View`
     
@@ -23,6 +31,7 @@ export const ContentTopContainer = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 24px;
 `
 
 export const Title = styled.Text`
@@ -33,6 +42,11 @@ export const Title = styled.Text`
 export const CoursesNumber = styled.Text`
     font-size: 18px;
     color: #A0A0B2;
+`
+
+export const CoursesList = styled(FlatList as new () => FlatList<Course>)`
+    width: 100%;
+    margin-bottom: 16px;
 `
 
 export const CardsContainer = styled.View`
@@ -49,6 +63,8 @@ export const CourseCard = styled(RectButton)`
 
     justify-content: center;
     align-items: center;     
+
+    margin: 4px;
 `
 
 export const CourseImage = styled.Image`

@@ -1,19 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 
 import { useFavorite } from '../../context/FavoritesContext'
+import { useCourses } from '../../context/CoursesContext'
 
 import Math from '../../assets/Math.png'
 
 import * as S from './styles'
 
+interface Course {
+    id: string,
+    name: string,
+    number_of_classes: string,
+    avatar: string
+}
+
 const Favorites: React.FC = () => {
     const { navigate } = useNavigation()
+    const isFocused = useIsFocused()
     const { favorites } = useFavorite()
+    const { courses } = useCourses()
+
+    const [favoritesCourses, setFavoritesCourses] = useState<Course[]>([])
 
     useEffect(()=>{
-        console.log(favorites)
-    },[favorites])
+        setFavoritesCourses(state => {
+            return courses.filter(course => {
+                return favorites.includes(course.id)
+            })
+        })
+    },[courses, favorites, isFocused])
 
     return(
         <S.Container>
@@ -21,19 +38,21 @@ const Favorites: React.FC = () => {
                 <S.ContentTopContainer>
                     <S.Title>Cursos favoritos</S.Title>
                 </S.ContentTopContainer>
-                <S.CardsContainer>
-                    <S.CourseCard onPress={()=>navigate('Details')}>
-                        <S.CourseImage source={Math}/>
-                        <S.CourseName>Matemática</S.CourseName>
-                        <S.CourseLessons>16 aulas</S.CourseLessons>
-                    </S.CourseCard>
-                    <S.CourseCard onPress={()=>navigate('Details')}>
-                        <S.CourseImage source={Math}/>
-                        <S.CourseName>Matemática</S.CourseName>
-                        <S.CourseLessons>16 aulas</S.CourseLessons>
-                    </S.CourseCard>
-                    
-                </S.CardsContainer>
+                <S.CoursesList 
+                    data={favoritesCourses}
+                    keyExtractor={course => course.id}
+                    horizontal={false}
+                    numColumns={2}
+                    renderItem={({item: course})=>(
+                        <S.CourseCard 
+                            onPress={()=>navigate('Details', {id: course.id, name: course.name})}
+                        >
+                            <S.CourseImage source={Math}/>
+                            <S.CourseName>{course.name}</S.CourseName>
+                            <S.CourseLessons>{course.number_of_classes} aulas</S.CourseLessons>
+                        </S.CourseCard>
+                    )}
+                />
             </S.Content>
         </S.Container>
     )
