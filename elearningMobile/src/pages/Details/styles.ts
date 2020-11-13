@@ -73,6 +73,8 @@ export const CardContent = styled.View`
     margin-left: 48px;
     height: 100%;
     width: 100%;
+
+    padding-right: 16px;
 `
 
 export const CardTitle = styled.Text`

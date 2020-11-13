@@ -47,7 +47,6 @@ export const CardsContainer = styled.View`
 
 export const CoursesList = styled(FlatList as new () => FlatList<Course>)`
     width: 100%;
-    margin-bottom: 16px;
 `
 
 export const CourseCard = styled(RectButton)`
@@ -57,7 +56,8 @@ export const CourseCard = styled(RectButton)`
     background-color: #FFF;  
 
     justify-content: center;
-    align-items: center;     
+    align-items: center;   
+    text-align: center;   
 
     margin: 4px;
 `

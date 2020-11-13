@@ -50,7 +50,7 @@ const Details: React.FC = ()=>{
                                 <S.CardTitle>{lesson.name}</S.CardTitle>
                                 <S.CardInfoContainer>
                                     <S.CardInfo>Aula {index+1}</S.CardInfo>
-                                    <S.CardInfo>{lesson.duration/60}min</S.CardInfo>
+                                    <S.CardInfo>{lesson.duration}</S.CardInfo>
                                 </S.CardInfoContainer>
                             </S.CardContent>
                         </S.LessonCard>

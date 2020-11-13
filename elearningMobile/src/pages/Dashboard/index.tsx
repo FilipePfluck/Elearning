@@ -16,6 +16,12 @@ const Dashboard: React.FC = () => {
 
     const { courses, setCourses } = useCourses()
 
+    useEffect(()=>{
+        courses.map(course => {
+            console.log(course.avatar)
+        })
+    },[courses])
+
     return(
         <S.Container>
             <S.Content>
@@ -33,7 +39,7 @@ const Dashboard: React.FC = () => {
                         <S.CourseCard 
                             onPress={()=>navigate('Details', {id: course.id, name: course.name})}
                         >
-                            <S.CourseImage source={Math}/>
+                            <S.CourseImage source={{uri: course.avatar}}/>
                             <S.CourseName>{course.name}</S.CourseName>
                             <S.CourseLessons>{course.number_of_classes} aulas</S.CourseLessons>
                         </S.CourseCard>
