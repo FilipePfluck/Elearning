@@ -1,12 +1,14 @@
-import React from 'react'
-import { useRoute } from '@react-navigation/native'
+import React, {useState, useCallback, useEffect} from 'react'
+import { useRoute, useNavigation } from '@react-navigation/native'
 import Icon from 'react-native-vector-icons/Feather'
 import Video from 'react-native-video'
+import YoutubePlayer from "react-native-youtube-iframe"
 
 import LessonHeader from '../../components/LessonHeader'
 
 import * as S from './styles'
 import { View } from 'react-native'
+import { LessonsList } from '../Details/styles'
 
 interface Lesson {
     id: string,
@@ -19,27 +21,60 @@ interface Lesson {
 interface Params {
     lesson: Lesson,
     index: number,
-    id: string
+    id: string,
+    lessons: Lesson[]
 }
 
 const Lesson: React.FC = ()=>{
     const route = useRoute()
+    const { navigate } = useNavigation()
 
     const RouteParams = route.params as Params
 
-    const {lesson, index, id} = RouteParams
+    const {lesson, lessons, index, id} = RouteParams
+
+    const [playing, setPlaying] = useState(false);
+
+    const onStateChange = useCallback((state) => {
+        if (state === "ended") {
+        setPlaying(false);
+        }
+    }, []);
+
+    const togglePlaying = useCallback(() => {
+        setPlaying((prev) => !prev);
+    }, [])
+
+    const handleNextLesson = useCallback(()=>{
+        if(index < lessons.length - 1){
+            const nextLesson = lessons[index+1]
+
+            navigate('Lesson', {lesson: nextLesson, index: index+1, id, lessons})
+        }
+        return
+    },[lesson, index, id, lessons])
+
+    const handlePreviousLesson = useCallback(()=>{
+        if(index > 0){
+            const previousLesson = lessons[index-1]
+
+            navigate('Lesson', {lesson: previousLesson, index: index-1, id, lessons})
+        }
+        return
+    },[lesson, index, id, lessons])
 
     return(
         <S.Container>
             <LessonHeader CourseId={id}/>
             <S.Content>
-                
-                <Video
-                    source={{uri: `https://youtu.be/${lesson.video_id}`}}
-                    controls
-                    style={{
-                        height: 200,
-                        width: 700
+
+                <YoutubePlayer
+                    height={300}
+                    videoId={lesson.video_id}
+                    play={playing}
+                    onChangeState={onStateChange}
+                    initialPlayerParams={{
+                        controls: true,
                     }}
                 />
                 
@@ -52,7 +87,7 @@ const Lesson: React.FC = ()=>{
                     {lesson.description}
                 </S.Description>
                 <S.ButtonsContainer>
-                    <S.PreviousButton>
+                    <S.PreviousButton onPress={handlePreviousLesson}>
                         <Icon 
                             name="arrow-left" 
                             color="#FF6680"
@@ -65,11 +100,11 @@ const Lesson: React.FC = ()=>{
                             Aula anterior
                         </S.ButtonText>
                     </S.PreviousButton>
-                    <S.NextButton>
+                    <S.NextButton onPress={handleNextLesson}>
                         <S.ButtonText
                             style={{color: '#FFF'}}
                         >
-                            Aula anterior
+                            Próxima aula
                         </S.ButtonText>
                         <Icon 
                             name="arrow-right" 

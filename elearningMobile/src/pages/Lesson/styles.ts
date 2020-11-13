@@ -1,23 +1,23 @@
 import { RectButton } from 'react-native-gesture-handler'
 import styled from 'styled-components/native'
+import { Dimensions } from 'react-native'
+
+const width = Dimensions.get('window').width;
 
 export const Container = styled.View`
-    
+    flex: 1;
 `
 
-export const Content = styled.ScrollView`
-    height: 100%;
+export const Content = styled.View`
+    flex: 1;
     padding: 24px;
-    background-color: #F0EDF5;
+    background-color: #F0F0F5;
 `
 
 export const Video = styled.View`
-    width: 100%;
-    height: 240px;
 
     background-color: #3D3D4C;
     border-radius: 16px;
-
 `
 
 export const Title = styled.Text`
@@ -25,7 +25,7 @@ export const Title = styled.Text`
     font-size: 32px;
     max-width: 280px;
 
-    margin-top: 24px;
+    margin-top: -24px;
 `
 
 export const InfoContainer = styled.View`
@@ -48,10 +48,12 @@ export const Description = styled.Text`
 `
 
 export const ButtonsContainer = styled.View`
+    position: absolute; bottom: 0px;
+    padding: 24px;
+    width: ${width};
     flex-direction: row;
-    width: 100%;
     justify-content: space-between;
-    margin-top: auto;
+    
 `
 
 export const Button = styled(RectButton)`

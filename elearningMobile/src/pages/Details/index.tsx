@@ -41,7 +41,7 @@ const Details: React.FC = ()=>{
                     keyExtractor={lesson => lesson.id}
                     renderItem={({item: lesson, index})=>(
                         <S.LessonCard
-                            onPress={()=>navigate('Lesson', {lesson, index, id})}
+                            onPress={()=>navigate('Lesson', {lesson, index, id, lessons})}
                         >
                             <S.PlayContainer>
                                 <Icon name="play-circle" color="#FFF" size={48}/>
