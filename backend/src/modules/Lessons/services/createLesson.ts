@@ -1,6 +1,8 @@
 import { getRepository } from 'typeorm'
 import Lesson from '../entities/Lesson'
 
+import UpdateCourseLessonsNumber from '@modules/Courses/services/updateCoursesLessonNumber'
+
 interface IRequest {
     course_id: string,
     description: string,
@@ -18,6 +20,7 @@ class CreateLesson {
         video_id
     }:IRequest){
         const lessonRepository = getRepository(Lesson)
+        const updateCoursesLessonNumber = new UpdateCourseLessonsNumber()
 
         const lesson = lessonRepository.create({
             course_id,
@@ -28,6 +31,8 @@ class CreateLesson {
         })
 
         await lessonRepository.save(lesson)
+
+        await updateCoursesLessonNumber.execute({id: course_id})
 
         return lesson
     }

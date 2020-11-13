@@ -10,10 +10,14 @@ class ListCourses {
         const courseRepository = getRepository(Course)
         const courses = await courseRepository.find()
 
+        const coursesFixed = courses.map(course => {
+            return {...course, avatar: `http://localhost:3333/files/${course.avatar}.svg`}
+        })
+
         if(search){
             const splittedSearch = search.toLowerCase().split('')
         
-            const filteredCourses = courses.filter(course => {
+            const filteredCourses = coursesFixed.filter(course => {
                 const splittedName = course.name.toLowerCase().split('')
 
                 const splittedNameContainsSplittedSearch = splittedSearch.every((element, index, array) => {
@@ -34,7 +38,7 @@ class ListCourses {
             return filteredCourses
         }
 
-        return courses
+        return coursesFixed
     }
 }
 
