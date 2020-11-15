@@ -11,7 +11,7 @@ class ListCourses {
         const courses = await courseRepository.find()
 
         const coursesFixed = courses.map(course => {
-            return {...course, avatar: `http://localhost:3333/files/${course.avatar}.svg`}
+            return {...course, avatar: `http://192.168.1.8:3333/files/${course.avatar}.svg`}
         })
 
         if(search){

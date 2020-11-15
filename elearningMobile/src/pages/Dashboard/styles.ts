@@ -63,7 +63,8 @@ export const CourseCard = styled(RectButton)`
 `
 
 export const CourseImage = styled.Image`
-
+    height: 100px;
+    width: 100px;
 `
 
 export const CourseName = styled.Text`
