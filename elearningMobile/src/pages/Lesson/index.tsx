@@ -81,7 +81,7 @@ const Lesson: React.FC = ()=>{
                 <S.Title>{lesson.name}</S.Title>
                 <S.InfoContainer>
                     <S.Info>Aula {index+1}</S.Info>
-                    <S.Info>{lesson.duration/60} min</S.Info>
+                    <S.Info>{lesson.duration}</S.Info>
                 </S.InfoContainer>
                 <S.Description>
                     {lesson.description}

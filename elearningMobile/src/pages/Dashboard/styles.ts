@@ -51,7 +51,8 @@ export const CoursesList = styled(FlatList as new () => FlatList<Course>)`
 
 export const CourseCard = styled(RectButton)`
     width: 48%;
-    padding: 32px;
+    height: 172px;
+    padding: 24px;
     border-radius: 16px;
     background-color: #FFF;  
 

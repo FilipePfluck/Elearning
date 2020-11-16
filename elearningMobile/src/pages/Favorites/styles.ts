@@ -56,13 +56,14 @@ export const CardsContainer = styled.View`
 
 export const CourseCard = styled(RectButton)`
     width: 48%;
-    padding: 32px;
+    height: 172px;
+    padding: 24px;
     border-radius: 16px;
     background-color: #FFF;  
 
     justify-content: center;
-    align-items: center;    
-    text-align: center; 
+    align-items: center;   
+    text-align: center;   
 
     margin: 4px;
 `

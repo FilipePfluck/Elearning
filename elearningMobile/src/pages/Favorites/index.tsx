@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useIsFocused } from '@react-navigation/native'
+import { SvgUri } from 'react-native-svg'
 
 import { useFavorite } from '../../context/FavoritesContext'
 import { useCourses } from '../../context/CoursesContext'
@@ -47,7 +48,11 @@ const Favorites: React.FC = () => {
                         <S.CourseCard 
                             onPress={()=>navigate('Details', {id: course.id, name: course.name})}
                         >
-                            <S.CourseImage source={{uri: course.avatar}}/>
+                            <SvgUri
+                                width={64}
+                                height={64}
+                                uri={course.avatar}
+                            />
                             <S.CourseName>{course.name}</S.CourseName>
                             <S.CourseLessons>{course.number_of_classes} aulas</S.CourseLessons>
                         </S.CourseCard>

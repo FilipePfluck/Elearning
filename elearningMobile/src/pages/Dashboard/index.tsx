@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { SvgUri } from 'react-native-svg'
 
 import { useCourses } from '../../context/CoursesContext'
 
@@ -39,7 +40,11 @@ const Dashboard: React.FC = () => {
                         <S.CourseCard 
                             onPress={()=>navigate('Details', {id: course.id, name: course.name})}
                         >
-                            <S.CourseImage source={{uri: course.avatar}}/>
+                            <SvgUri
+                                width={64}
+                                height={64}
+                                uri={course.avatar}
+                            />
                             <S.CourseName>{course.name}</S.CourseName>
                             <S.CourseLessons>{course.number_of_classes} aulas</S.CourseLessons>
                         </S.CourseCard>
